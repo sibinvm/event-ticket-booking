@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['user_id', 'event_id', 'ticket_type_id', 'quantity', 'total_amount', 'status'])]
+#[Fillable(['user_id', 'event_id', 'ticket_type_id', 'quantity', 'total_amount', 'status', 'reminder_sent_at'])]
 class Booking extends Model
 {
     /** @use HasFactory<BookingFactory> */
@@ -29,6 +29,7 @@ class Booking extends Model
         return [
             'quantity' => 'integer',
             'total_amount' => 'decimal:2',
+            'reminder_sent_at' => 'datetime',
         ];
     }
 

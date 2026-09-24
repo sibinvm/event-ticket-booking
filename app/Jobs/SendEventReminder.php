@@ -39,6 +39,10 @@ class SendEventReminder implements ShouldQueue
     {
         $booking = $this->booking->loadMissing(['user', 'event']);
 
+        if (! $booking->isConfirmed()) {
+            return;
+        }
+
         Log::info("Event reminder email sent for Booking #{$booking->id}", [
             'booking_id' => $booking->id,
             'user_id' => $booking->user_id,
