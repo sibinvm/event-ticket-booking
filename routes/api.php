@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Middleware\EnsureUserIsOrganizer;
 use Illuminate\Support\Facades\Route;
@@ -21,8 +22,11 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('/events/{event}/book', [BookingController::class, 'store']);
     Route::post('/bookings/{booking}/cancel', [BookingController::class, 'cancel']);
 
-    // Organizer Event & Ticket Type Management
+    // Organizer Event, Ticket Type Management & Reports
     Route::middleware(EnsureUserIsOrganizer::class)->group(function (): void {
+        Route::get('/reports/summary', [ReportController::class, 'summary']);
+        Route::get('/events/{event}/reports', [ReportController::class, 'eventReport']);
+
         Route::post('/events', [EventController::class, 'store']);
         Route::get('/events/{event}', [EventController::class, 'show']);
         Route::put('/events/{event}', [EventController::class, 'update']);
