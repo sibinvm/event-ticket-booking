@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Middleware\EnsureUserIsOrganizer;
@@ -15,6 +16,9 @@ Route::get('/events', [EventController::class, 'index']);
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
+
+    // Attendee Booking
+    Route::post('/events/{event}/book', [BookingController::class, 'store']);
 
     // Organizer Event & Ticket Type Management
     Route::middleware(EnsureUserIsOrganizer::class)->group(function (): void {
