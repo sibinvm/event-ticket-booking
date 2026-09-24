@@ -28,7 +28,7 @@ class EventResource extends JsonResource
             ], [
                 'id' => $this->organizer_id,
             ]),
-            'ticket_types' => $this->whenLoaded('ticketTypes'),
+            'ticket_types' => TicketTypeResource::collection($this->whenLoaded('ticketTypes')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
