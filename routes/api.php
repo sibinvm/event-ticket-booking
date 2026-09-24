@@ -17,8 +17,9 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
 
-    // Attendee Booking
+    // Attendee Booking & Cancellation
     Route::post('/events/{event}/book', [BookingController::class, 'store']);
+    Route::post('/bookings/{booking}/cancel', [BookingController::class, 'cancel']);
 
     // Organizer Event & Ticket Type Management
     Route::middleware(EnsureUserIsOrganizer::class)->group(function (): void {
