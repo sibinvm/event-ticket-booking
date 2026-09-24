@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BookingConfirmed;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
@@ -124,6 +125,9 @@ class BookingController extends Controller
 
             return $booking;
         });
+
+        // Dispatch BookingConfirmed only AFTER the booking transaction succeeds
+        BookingConfirmed::dispatch($booking);
 
         $booking->load(['event', 'ticketType']);
 
